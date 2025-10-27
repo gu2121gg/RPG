@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Editor - RPG</title>
+    <link rel="stylesheet" href="editor-style.css">
+</head>
+<body>
+    <div id="editor-container">
+        <!-- TOOLBAR -->
+        <header id="toolbar">
+            <h1>Map Editor</h1>
+            <span id="map-info">Mapa: Sem título</span>
+            
+            <div class="toolbar-section">
+                <button id="btn-undo" title="Desfazer (Ctrl+Z)">↶ Desfazer</button>
+                <button id="btn-redo" title="Refazer (Ctrl+Y)">↷ Refazer</button>
+            </div>
+            
+            <div class="toolbar-section tools">
+                <button class="tool-btn active" data-tool="brush" title="Pincel (B)">
+                    Pincel
+                </button>
+                <button class="tool-btn" data-tool="eraser" title="Borracha (E)">
+                    Borracha
+                </button>
+                <button class="tool-btn" data-tool="fill" title="Preencher (F)">
+                    Preencher
+                </button>
+                <button class="tool-btn" data-tool="select" title="Selecionar (S)">
+                    Selecionar
+                </button>
+            </div>
+            
+            <div class="toolbar-section">
+                <button id="btn-draw-mode" title="Alternar modo (O)">
+                    Modo: Replace
+                </button>
+            </div>
+            
+            <div class="toolbar-section">
+                <button id="btn-new">Novo</button>
+                <button id="btn-save">Salvar</button>
+                <button id="btn-load">Carregar</button>
+                <button id="btn-export">Exportar</button>
+            </div>
+            
+            <div class="toolbar-section">
+                <button id="btn-test">▶️ Testar</button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <div id="main-content">
+            <!-- SIDEBAR ESQUERDA - PALETA DE TILES -->
+            <aside id="tileset-panel">
+                <h3>Paleta de Tiles</h3>
+                
+                <div class="panel-controls">
+                    <label>
+                        <input type="checkbox" id="show-grid-tileset" checked>
+                        Mostrar Grid
+                    </label>
+                </div>
+                
+                <div id="tileset-container">
+                    <canvas id="tileset-canvas"></canvas>
+                </div>
+                
+                <div class="tile-info">
+                    <p><strong>Tile Selecionado:</strong></p>
+                    <p id="selected-tile-info">Nenhum</p>
+                </div>
+            </aside>
+
+            <!-- CANVAS PRINCIPAL -->
+            <main id="canvas-area">
+                <div class="canvas-controls">
+                    <div>
+                        <label>Zoom:</label>
+                        <button id="zoom-out">➖</button>
+                        <span id="zoom-level">100%</span>
+                        <button id="zoom-in">➕</button>
+                    </div>
+                    
+                    <div>
+                        <label>
+                            <input type="checkbox" id="show-grid" checked>
+                            Grid
+                        </label>
+                        <label>
+                            <input type="checkbox" id="show-collision" checked>
+                            Colisão
+                        </label>
+                    </div>
+                </div>
+                
+                <div id="canvas-wrapper">
+                    <canvas id="map-canvas"></canvas>
+                </div>
+            </main>
+
+            <!-- SIDEBAR DIREITA - CAMADAS E PROPRIEDADES -->
+            <aside id="layers-panel">
+                <h3>Camadas</h3>
+                
+                <div id="layers-list">
+                    <div class="layer-item active" data-layer="ground">
+                        <input type="checkbox" checked>
+                        <span>Chão</span>
+                    </div>
+                    <div class="layer-item" data-layer="objects">
+                        <input type="checkbox" checked>
+                        <span>Objetos</span>
+                    </div>
+                    <div class="layer-item" data-layer="collision">
+                        <input type="checkbox" checked>
+                        <span>Colisão</span>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h3>Propriedades do Mapa</h3>
+                
+                <div class="property-group">
+                    <label>Largura (tiles):</label>
+                    <input type="number" id="map-width" value="40" min="10" max="100">
+                </div>
+                
+                <div class="property-group">
+                    <label>Altura (tiles):</label>
+                    <input type="number" id="map-height" value="40" min="10" max="100">
+                </div>
+                
+                <div class="property-group">
+                    <label>Tamanho do Tile:</label>
+                    <select id="tile-size">
+                        <option value="16">16px</option>
+                        <option value="32" selected>32px</option>
+                        <option value="48">48px</option>
+                    </select>
+                </div>
+                
+                <button id="btn-resize-map" class="btn-full">Redimensionar</button>
+                
+                <hr>
+                
+                <h3>Spawn do Player</h3>
+                <div class="property-group">
+                    <p id="spawn-info">X: 20, Y: 20</p>
+                    <button id="btn-set-spawn" class="btn-full">Definir Spawn</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <script src="map-editor.js"></script>
+</body>
+</html>
